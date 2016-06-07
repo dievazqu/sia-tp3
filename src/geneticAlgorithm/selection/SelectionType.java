@@ -7,7 +7,7 @@ import java.util.List;
 public enum SelectionType {
 	ELITE(null),
 	RANDOM(new RandomSelection()),
-	ROULETTE(null),
+	ROULETTE(new RouletteSelection()),
 	UNIVERSAL(null),
 	BOTLZMANN(null),
 	TOURNAMENT_DETERMINISTIC(null),

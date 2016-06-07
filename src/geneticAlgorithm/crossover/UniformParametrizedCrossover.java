@@ -6,16 +6,15 @@ import geneticAlgorithm.individual.Individual;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OnePointCrossover implements CrossoverReproduction {
-	
+public class UniformParametrizedCrossover implements CrossoverReproduction {
+
 	@Override
 	public List<Individual> reproduce(Individual i1, Individual i2) {
 		int size =i1.getAlleles().size();
-		int k = (int)(Math.random()*(size-1)); // 0-indexed instead of 1-indexed
 		List<Allele> child1 = new ArrayList<Allele>(size);
 		List<Allele> child2 = new ArrayList<Allele>(size);
 		for(int i=0; i<size; i++){
-			if(i<=k){
+			if(Math.random()<0.5){
 				child1.add(i1.getAlleleAt(i).clone());
 				child2.add(i2.getAlleleAt(i).clone());
 			}else{
@@ -28,4 +27,5 @@ public class OnePointCrossover implements CrossoverReproduction {
 		ans.add(new Individual(child2, i1.getFitnessFunction()));
 		return ans;
 	}
+
 }

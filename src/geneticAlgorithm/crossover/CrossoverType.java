@@ -8,7 +8,7 @@ public enum CrossoverType {
 	ONE_POINT(new OnePointCrossover()),
 	TWO_POINT(null),
 	ANULAR(null),
-	UNIFORM_PARAMETRIZED(null);
+	UNIFORM_PARAMETRIZED(new UniformParametrizedCrossover());
 
 	CrossoverReproduction crossoverReproduction;
 	

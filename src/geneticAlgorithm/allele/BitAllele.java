@@ -21,4 +21,9 @@ public class BitAllele extends Allele {
 	public String toString() {
 		return String.valueOf(isOn());
 	}
+
+	@Override
+	public void mutate() {
+		bit = (Math.random()<0.5);
+	}
 }

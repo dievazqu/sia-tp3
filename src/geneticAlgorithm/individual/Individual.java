@@ -7,6 +7,13 @@ import config.Param;
 
 public class Individual {
 	
+	public static List<Individual> reproduce(Param param, Individual i1, Individual i2){
+		if(!i1.getClass().equals(i2.getClass()) || i1.alleles.size()!=i2.alleles.size()){
+			throw new IllegalArgumentException();
+		}
+		return param.getCrossoverType().reproduce(i1, i2);
+	}
+	
 	private List<Allele> alleles;
 	private FitnessFunction fitnessFunction;
 	private Integer fitness;
@@ -14,6 +21,16 @@ public class Individual {
 	public Individual(List<Allele> alleles, FitnessFunction fitnessFunction){
 		this.alleles=alleles;
 		this.fitnessFunction=fitnessFunction;
+	}
+	
+	public void mutate(double probability){
+		if(probability<0 || probability>1){
+			throw new IllegalArgumentException("probability must be between 0 and 1.");
+		}
+		for(Allele a : alleles){
+			if(Math.random()<probability)
+				a.mutate();
+		}
 	}
 	
 	public int getFitness(){
@@ -35,19 +52,13 @@ public class Individual {
 		return alleles.get(i);
 	}
 	
-	public static List<Individual> reproduce(Param param, Individual i1, Individual i2){
-		if(!i1.getClass().equals(i2.getClass()) || i1.alleles.size()!=i2.alleles.size()){
-			throw new IllegalArgumentException();
-		}
-		return param.getCrossoverType().reproduce(i1, i2);
-	}
-	
 	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
 		for(Allele a : alleles){
 			stringBuilder.append(a.toString()+" - ");
 		}
+		stringBuilder.append(" fitness: "+getFitness());
 		return stringBuilder.toString();
 	}
 }

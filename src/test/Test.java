@@ -8,16 +8,20 @@ import java.util.List;
 
 import config.Param;
 
-public class TestRandomSelection {
+public class Test {
 
+	private static final int generationSize = 6;
+	private static final int maxEpochs = 100;
+	
 	public static void main(String[] args) {
 		List<Individual> list = new ArrayList<Individual>();
-		for(int i=0; i<6; i++){
+		for(int i=0; i<generationSize; i++){
 			list.add(new Individual(TestBitAllele.initialBitAlleles(5), TestBitAllele::fitness));
 		}
 		Population pop = new Population(new Param(null), list);
-		System.out.println(pop);
-		System.out.println("---");
-		pop.evolute(1);
+		for(int i=0; i<maxEpochs; i++){
+			System.out.println(pop);
+			pop.evolute(1);
+		}
 	}
 }

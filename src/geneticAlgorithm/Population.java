@@ -21,11 +21,10 @@ public class Population {
 		}
 	}
 	
-	private void next(){
-		List<Individual> selection = param.getSelectionType().selection(individuals, param.getSelectionSize());
-		System.out.println(selection);
-		//TODO: reproducirse
-		//TODO: amoldar al tamano de la poblacion
+	private void next(){	
+		List<Individual> newGeneration = param.getReplacementType().replace(param, individuals);
+		individuals.clear();
+		individuals.addAll(newGeneration);
 	}
 	
 	@Override

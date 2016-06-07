@@ -1,5 +1,6 @@
 package test;
-import geneticAlgorithm.allele.Allele;
+
+import geneticAlgorithm.Population;
 import geneticAlgorithm.allele.BitAllele;
 import geneticAlgorithm.individual.Individual;
 
@@ -8,35 +9,21 @@ import java.util.List;
 
 import config.Param;
 
-
 public class TestBitAllele {
 
+	private static final int alleleSize = 10;
+	private static final int generationSize = 10;
+	private static final int maxEpochs = 100;
+	
 	public static void main(String[] args) {
-		Individual i1 = new Individual(initialBitAlleles(5), TestBitAllele::fitness);
-		Individual i2 = new Individual(initialBitAlleles(5), TestBitAllele::fitness);
-		System.out.println(i1);
-		System.out.println(i2);
-		for(Individual i : Individual.reproduce(new Param(null), i1, i2)){
-			System.out.println(i);
-		};
-	}
-	
-	public static int fitness(List<Allele> list){
-		int ans = 0;
-		for(Allele a : list){
-			ans<<=1;
-			ans+=((BitAllele) a).isOn();
+		List<Individual> list = new ArrayList<Individual>();
+		for(int i=0; i<generationSize; i++){
+			list.add(new Individual(BitAllele.initialBitAlleles(alleleSize), BitAllele::fitness));
 		}
-		return ans;
-	}
-	
-	public static List<Allele> initialBitAlleles(int size){
-		List<Allele> list = new ArrayList<Allele>(size);
-		for(int i=0; i<size; i++){
-			list.add(new BitAllele(Math.random()<0.5));
+		Population pop = new Population(new Param(null), list);
+		for(int i=0; i<maxEpochs; i++){
+			System.out.println(pop);
+			pop.evolute(1);
 		}
-		return list;
 	}
-	
-	
 }

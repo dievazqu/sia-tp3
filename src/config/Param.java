@@ -18,7 +18,7 @@ public final class Param {
 		crossoverType = CrossoverType.UNIFORM_PARAMETRIZED;
 		selectionType = SelectionType.ROULETTE;
 		selectionSize = 3;
-		probabilityToMutate = 0.1;
+		probabilityToMutate = 0.05;
 	}
 
 	public Param(ReplacementType replacementType,

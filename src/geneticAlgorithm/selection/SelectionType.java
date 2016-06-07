@@ -5,10 +5,10 @@ import geneticAlgorithm.individual.Individual;
 import java.util.List;
 
 public enum SelectionType {
-	ELITE(null),
+	ELITE(new EliteSelection()),
 	RANDOM(new RandomSelection()),
 	ROULETTE(new RouletteSelection()),
-	UNIVERSAL(null),
+	UNIVERSAL(new UniversalSelection()),
 	BOTLZMANN(null),
 	TOURNAMENT_DETERMINISTIC(null),
 	TOURNAMENT_PROBABILISTIC(null),

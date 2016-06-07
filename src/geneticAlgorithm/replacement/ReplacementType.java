@@ -8,8 +8,8 @@ import config.Param;
 
 public enum ReplacementType {
 	ALL(new ReplacementAll()),
-	REPLACE_2(null),
-	REPLACE_3(null),
+	REPLACE_2(new Replacement2()),
+	REPLACE_3(new Replacement3()),
 	MIXED(null);
 
 	private Replacement replacement;

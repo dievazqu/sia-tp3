@@ -26,10 +26,10 @@ public class TestDoubleAllele {
 					DoubleAllele::fitnessIncreasing));
 		}
 		Population pop = new Population(new Param(
-				ReplacementType.ALL,
+				ReplacementType.REPLACE_2,
 				CrossoverType.UNIFORM_PARAMETRIZED,
-				SelectionType.ROULETTE,
-				3,
+				SelectionType.ELITE,
+				4,
 				0.05)
 		, list);
 		for (int i = 0; i < maxEpochs; i++) {

@@ -1,0 +1,5 @@
+replacementType=ALL
+crossoverType=UNIFORM_PARAMETRIZED
+selectionType=ROULETTE
+selectionSize=3
+probabilityToMutate=0.05

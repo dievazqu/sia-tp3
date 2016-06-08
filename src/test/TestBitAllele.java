@@ -20,7 +20,7 @@ public class TestBitAllele {
 		for(int i=0; i<generationSize; i++){
 			list.add(new Individual(BitAllele.initialBitAlleles(alleleSize), BitAllele::fitness));
 		}
-		Population pop = new Population(new Param(null), list);
+		Population pop = new Population(new Param("config/default"), list);
 		for(int i=0; i<maxEpochs; i++){
 			System.out.println(pop);
 			pop.evolute(1);

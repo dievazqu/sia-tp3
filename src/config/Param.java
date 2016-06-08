@@ -1,24 +1,48 @@
 package config;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+
 import geneticAlgorithm.crossover.CrossoverType;
 import geneticAlgorithm.replacement.ReplacementType;
 import geneticAlgorithm.selection.SelectionType;
 
 public final class Param {
 
-	private final ReplacementType replacementType;
-	private final CrossoverType crossoverType;
-	private final SelectionType selectionType;
-	private final int selectionSize;
-	private final double probabilityToMutate;
+	private ReplacementType replacementType;
+	private CrossoverType crossoverType;
+	private SelectionType selectionType;
+	private int selectionSize;
+	private double probabilityToMutate;
 
 	public Param(String fileName) {
-		// TODO: levantar de archivo.
-		replacementType = ReplacementType.ALL;
-		crossoverType = CrossoverType.UNIFORM_PARAMETRIZED;
-		selectionType = SelectionType.ROULETTE;
-		selectionSize = 3;
-		probabilityToMutate = 0.05;
+		try {
+			Scanner scanner = new Scanner(new File(fileName));
+			while (scanner.hasNext()) {
+				String[] keyValue = scanner.next().split("=");
+				switch (keyValue[0]) {
+				case "replacementType":
+					replacementType = ReplacementType.valueOf(keyValue[1]);
+					break;
+				case "crossoverType":
+					crossoverType = CrossoverType.valueOf(keyValue[1]);
+					break;
+				case "selectionType":
+					selectionType = SelectionType.valueOf(keyValue[1]);
+					break;
+				case "selectionSize":
+					selectionSize = Integer.valueOf(keyValue[1]);
+					break;
+				case "probabilityToMutate":
+					probabilityToMutate = Double.valueOf(keyValue[1]);
+					break;
+				}
+			}
+			scanner.close();
+		}  catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Param(ReplacementType replacementType,

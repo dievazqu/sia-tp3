@@ -4,7 +4,7 @@ import geneticAlgorithm.individual.Individual;
 import config.Param;
 
 
-public class TestReprocution {
+public class TestReprodution {
 
 	public static void main(String[] args) {
 		Individual i1 = new Individual(BitAllele.initialBitAlleles(5), BitAllele::fitness);

@@ -2,6 +2,7 @@ package geneticAlgorithm.crossover;
 
 import geneticAlgorithm.allele.Allele;
 import geneticAlgorithm.individual.Individual;
+import geneticAlgorithm.individual.IndividualFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 public class UniformParametrizedCrossover implements CrossoverReproduction {
 
 	@Override
-	public List<Individual> reproduce(Individual i1, Individual i2) {
+	public List<Individual> reproduce(IndividualFactory factory, Individual i1, Individual i2) {
 		int size =i1.getAlleles().size();
 		List<Allele> child1 = new ArrayList<Allele>(size);
 		List<Allele> child2 = new ArrayList<Allele>(size);
@@ -23,8 +24,8 @@ public class UniformParametrizedCrossover implements CrossoverReproduction {
 			}
 		}
 		List<Individual> ans = new ArrayList<Individual>();
-		ans.add(new Individual(child1, i1.getFitnessFunction()));
-		ans.add(new Individual(child2, i1.getFitnessFunction()));
+		ans.add(factory.createIndividual(child1));
+		ans.add(factory.createIndividual(child2));
 		return ans;
 	}
 

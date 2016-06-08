@@ -25,7 +25,7 @@ public class ItemAllele extends Allele {
 
 	@Override
 	public String toString() {
-		Item item = itemProvider.getItemAt(characteristicIndex);
+		Item item = getItem();
 		return "ItemAllele ["
 				+ "str=" + String.format("%.2f", item.getStr()) + ", "
 				+ "agi=" + String.format("%.2f", item.getAgi()) + ", "
@@ -34,6 +34,8 @@ public class ItemAllele extends Allele {
 				+ "health=" + String.format("%.2f", item.getHealth()) + "]";
 	}
 	
-	
+	public Item getItem(){
+		return itemProvider.getItemAt(characteristicIndex);
+	}
 
 }

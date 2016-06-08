@@ -5,44 +5,43 @@ import java.util.List;
 
 import config.Param;
 
-public class Individual {
+public abstract class Individual {
 	
-	public static List<Individual> reproduce(Param param, Individual i1, Individual i2){
+	public static List<Individual> reproduce(Param param, IndividualFactory factory, 
+			Individual i1, Individual i2){
 		if(!i1.getClass().equals(i2.getClass()) || i1.alleles.size()!=i2.alleles.size()){
 			throw new IllegalArgumentException();
 		}
-		return param.getCrossoverType().reproduce(i1, i2);
+		return param.getCrossoverType().reproduce(factory, i1, i2);
 	}
 	
-	private List<Allele> alleles;
-	private FitnessFunction fitnessFunction;
-	private Integer fitness;
+	protected List<Allele> alleles;
+	private Double fitness;
 	
-	public Individual(List<Allele> alleles, FitnessFunction fitnessFunction){
+	public Individual(List<Allele> alleles){
 		this.alleles=alleles;
-		this.fitnessFunction=fitnessFunction;
 	}
 	
 	public void mutate(double probability){
 		if(probability<0 || probability>1){
 			throw new IllegalArgumentException("probability must be between 0 and 1.");
 		}
+		//TODO: Do both methods
 		for(Allele a : alleles){
 			if(Math.random()<probability)
 				a.mutate();
 		}
 	}
 	
-	public int getFitness(){
+	public double getFitness(){
 		if(fitness==null){
-			fitness=fitnessFunction.calculateFitness(alleles);
+			fitness=getFitnessValue();
 		}
 		return fitness;
 	}
 	
-	public FitnessFunction getFitnessFunction() {
-		return fitnessFunction;
-	}
+	public abstract double getFitnessValue();
+	
 	
 	public List<Allele> getAlleles() {
 		return alleles;

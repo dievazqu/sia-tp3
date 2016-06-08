@@ -19,22 +19,22 @@ public class TestDoubleAllele {
 	private static final int maxEpochs = 1000;
 
 	public static void main(String[] args) {
-		List<Individual> list = new ArrayList<Individual>();
-		for (int i = 0; i < generationSize; i++) {
-			list.add(new Individual(DoubleAllele
-					.initialDoubleAlleles(alleleSize),
-					DoubleAllele::fitnessIncreasing));
-		}
-		Population pop = new Population(new Param(
-				ReplacementType.REPLACE_2,
-				CrossoverType.UNIFORM_PARAMETRIZED,
-				SelectionType.ELITE,
-				4,
-				0.05)
-		, list);
-		for (int i = 0; i < maxEpochs; i++) {
-			System.out.println(pop);
-			pop.evolute(1);
-		}
+//		List<Individual> list = new ArrayList<Individual>();
+//		for (int i = 0; i < generationSize; i++) {
+//			list.add(new Individual(DoubleAllele
+//					.initialDoubleAlleles(alleleSize),
+//					DoubleAllele::fitnessIncreasing));
+//		}
+//		Population pop = new Population(new Param(
+//				ReplacementType.REPLACE_2,
+//				CrossoverType.UNIFORM_PARAMETRIZED,
+//				SelectionType.ELITE,
+//				4,
+//				0.05)
+//		, list);
+//		for (int i = 0; i < maxEpochs; i++) {
+//			System.out.println(pop);
+//			pop.evolute(1);
+//		}
 	}
 }

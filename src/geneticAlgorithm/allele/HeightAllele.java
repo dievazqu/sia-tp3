@@ -1,8 +1,5 @@
 package geneticAlgorithm.allele;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 
  *	Allele with value between 1.3 and 2.0
@@ -21,7 +18,7 @@ public class HeightAllele extends Allele {
 
 	@Override
 	public Allele clone() {
-		return new DoubleAllele(value);
+		return new HeightAllele(value);
 	}
 
 	@Override
@@ -46,5 +43,9 @@ public class HeightAllele extends Allele {
 	public double getDefenseModifier(){
 		double base = 3*value-5;
 		return 2+Math.pow(base, 4)-Math.pow(base, 2)-(value/2);
+	}
+	
+	public static HeightAllele getRandomAllele(){
+		return new HeightAllele(Math.random()*0.7+1.3);
 	}
 }

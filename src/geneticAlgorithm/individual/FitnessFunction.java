@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface FitnessFunction {
 
-	int calculateFitness(List<Allele> alleles);
+	double calculateFitness(List<Allele> alleles);
 }

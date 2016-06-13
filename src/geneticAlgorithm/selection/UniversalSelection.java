@@ -9,7 +9,7 @@ import java.util.TreeMap;
 public class UniversalSelection implements Selectionable{
 
 	@Override
-	public List<Individual> selection(List<Individual> list, int sizeOfNewList) {
+	public List<Individual> selection(List<Individual> list, int sizeOfNewList, int generation) {
 		long totalFitness = 0;
 		for(Individual i : list){
 			totalFitness += i.getFitness();

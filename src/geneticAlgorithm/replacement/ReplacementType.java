@@ -16,7 +16,7 @@ public enum ReplacementType {
 		this.replacement = replacement;
 	}
 
-	public List<Individual> replace(Param param, IndividualFactory factory, List<Individual> generation) {
-		return replacement.replace(param, factory, generation);
+	public List<Individual> replace(Param param, IndividualFactory factory, List<Individual> generation, int generationNumber) {
+		return replacement.replace(param, factory, generation, generationNumber);
 	}
 }

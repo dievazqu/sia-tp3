@@ -1,18 +1,19 @@
 package geneticAlgorithm.selection;
 
-import geneticAlgorithm.individual.Individual;
-
 import java.util.List;
 
+import geneticAlgorithm.individual.Individual;
+
 public enum SelectionType {
+	
 	ELITE(new EliteSelection()),
 	RANDOM(new RandomSelection()),
 	ROULETTE(new RouletteSelection()),
 	UNIVERSAL(new UniversalSelection()),
-	BOTLZMANN(null),
-	TOURNAMENT_DETERMINISTIC(null),
-	TOURNAMENT_PROBABILISTIC(null),
-	RANKING(null);
+	BOLTZMANN(new BoltzmannSelection()),
+	TOURNAMENT_DETERMINISTIC(new TournamentDeterministicSelection()),
+	TOURNAMENT_PROBABILISTIC(new TournamentProbabilisticSelection()),
+	RANKING(new RankingSelection());
 	
 	private Selectionable selectionable;
 	
@@ -20,7 +21,7 @@ public enum SelectionType {
 		this.selectionable=selectionable;
 	}
 	
-	public List<Individual> selection(List<Individual> list, int size){
-		return selectionable.selection(list, size);
+	public List<Individual> selection(List<Individual> list, int size, int generation){
+		return selectionable.selection(list, size, generation);
 	}
 }

@@ -11,8 +11,8 @@ import config.Param;
 public class ReplacementAll implements Replacement {
 
 	@Override
-	public List<Individual> replace(Param param, IndividualFactory factory, List<Individual> generation) {
-		List<Individual> selection = param.getSelectionType().selection(generation, generation.size());
+	public List<Individual> replace(Param param, IndividualFactory factory, List<Individual> generation, int generationNumber) {
+		List<Individual> selection = param.getSelectionType().selection(generation, generation.size(), generationNumber);
 		List<Individual> children = new ArrayList<Individual>();
 		for(int i=1; i<selection.size(); i+=2){
 			children.addAll(param.getCrossoverType().reproduce(factory, selection.get(i), selection.get(i-1)));

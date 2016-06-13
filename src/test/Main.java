@@ -21,7 +21,7 @@ public class Main {
 
 	private static final int generationSize = 10;
 	private static final int maxEpochs = 100;
-	
+
 	private static ItemsProvider weapons;
 	private static ItemsProvider boots;
 	private static ItemsProvider helmets;
@@ -29,17 +29,17 @@ public class Main {
 	private static ItemsProvider mail;
 
 	public static void main(String[] args) {
-		
+
 		weapons = ItemParser.parseItems("equipamiento/armas.tsv");
 		boots = ItemParser.parseItems("equipamiento/botas.tsv");
 		helmets = ItemParser.parseItems("equipamiento/cascos.tsv");
 		gloves = ItemParser.parseItems("equipamiento/guantes.tsv");
 		mail = ItemParser.parseItems("equipamiento/pecheras.tsv");
-		
+
 		List<Individual> list = createRandomIndividuals(generationSize);
-		
+
 		Population pop = new Population(new Param("config/default"), new ArcherFactory(), list);
-		for(int i=0; i<maxEpochs; i++){
+		for (int i = 0; i < maxEpochs; i++) {
 			System.out.println(pop);
 			pop.evolute(1);
 		}
@@ -56,10 +56,10 @@ public class Main {
 		return alleles;
 	}
 
-	private static List<Individual> createRandomIndividuals(int generationSize){
+	private static List<Individual> createRandomIndividuals(int generationSize) {
 		IndividualFactory factory = new ArcherFactory();
 		List<Individual> list = new ArrayList<Individual>();
-		for(int i=0; i<generationSize; i++){
+		for (int i = 0; i < generationSize; i++) {
 			list.add(factory.createIndividual(getRandomCombination()));
 		}
 		return list;

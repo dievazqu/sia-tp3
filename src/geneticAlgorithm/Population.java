@@ -12,11 +12,13 @@ public class Population {
 	private final Param param;
 	private final List<Individual> individuals;
 	private final IndividualFactory factory;
+	private int generation;
 
 	public Population(Param param, IndividualFactory factory, List<Individual> individuals) {
 		this.param = param;
 		this.individuals = individuals;
 		this.factory = factory;
+		generation = 0;
 	}
 
 	public void evolute(int generations) {
@@ -26,7 +28,8 @@ public class Population {
 	}
 
 	private void next() {
-		List<Individual> newGeneration = param.getReplacementType().replace(param, factory, individuals);
+		List<Individual> newGeneration = param.getReplacementType().replace(param, factory, individuals, generation);
+		generation++;
 		individuals.clear();
 		individuals.addAll(newGeneration);
 	}

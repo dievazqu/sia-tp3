@@ -1,5 +1,5 @@
-replacementType=ALL
+replacementType=REPLACE_2
 crossoverType=UNIFORM_PARAMETRIZED
-selectionType=ROULETTE
-selectionSize=3
-probabilityToMutate=0.05
+selectionType=BOLTZMANN
+selectionSize=4
+probabilityToMutate=0.1

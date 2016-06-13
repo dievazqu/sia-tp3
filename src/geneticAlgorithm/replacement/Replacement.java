@@ -7,5 +7,5 @@ import geneticAlgorithm.individual.Individual;
 import geneticAlgorithm.individual.IndividualFactory;
 
 public interface Replacement {
-	List<Individual> replace(Param param, IndividualFactory factory, List<Individual> generation);
+	List<Individual> replace(Param param, IndividualFactory factory, List<Individual> generation, int generationNumber);
 }

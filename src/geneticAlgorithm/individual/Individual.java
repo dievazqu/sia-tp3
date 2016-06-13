@@ -5,7 +5,7 @@ import java.util.List;
 
 import config.Param;
 
-public abstract class Individual {
+public abstract class Individual implements Comparable<Individual> {
 	
 	public static List<Individual> reproduce(Param param, IndividualFactory factory, 
 			Individual i1, Individual i2){
@@ -31,6 +31,10 @@ public abstract class Individual {
 			if(Math.random()<probability)
 				a.mutate();
 		}
+		
+		/*if(Math.random()<probability){
+			alleles.get((int)(Math.random()*alleles.size())).mutate();
+		}*/
 	}
 	
 	public double getFitness(){
@@ -40,7 +44,7 @@ public abstract class Individual {
 		return fitness;
 	}
 	
-	public abstract double getFitnessValue();
+	protected abstract double getFitnessValue();
 	
 	
 	public List<Allele> getAlleles() {
@@ -55,9 +59,15 @@ public abstract class Individual {
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
 		for(Allele a : alleles){
-			stringBuilder.append(a.toString()+" - ");
+			//stringBuilder.append(a.toString()+" - ");
 		}
 		stringBuilder.append(" fitness: "+getFitness());
 		return stringBuilder.toString();
 	}
+	
+	@Override
+	public int compareTo(Individual o) {
+		return Double.compare(o.getFitness(), getFitness());
+	}
+	
 }

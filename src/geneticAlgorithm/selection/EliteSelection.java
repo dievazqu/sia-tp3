@@ -9,8 +9,8 @@ import java.util.List;
 public class EliteSelection implements Selectionable {
 
 	@Override
-	public List<Individual> selection(List<Individual> list, int sizeOfNewList) {
-		Collections.sort(list, (a,b) -> Double.compare(b.getFitness(), a.getFitness()));
+	public List<Individual> selection(List<Individual> list, int sizeOfNewList, int generation) {
+		Collections.sort(list);
 		return new ArrayList<Individual>(list.subList(0, sizeOfNewList));
 	}
 }

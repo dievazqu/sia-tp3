@@ -1,9 +1,9 @@
 package geneticAlgorithm.individual;
-import geneticAlgorithm.allele.Allele;
-
 import java.util.List;
 
 import config.Param;
+import geneticAlgorithm.allele.Allele;
+import util.RandomUtil;
 
 public abstract class Individual implements Comparable<Individual> {
 	
@@ -22,18 +22,15 @@ public abstract class Individual implements Comparable<Individual> {
 		this.alleles=alleles;
 	}
 	
-	public void mutate(double probability){
+	public void mutate(Param param){
+		double probability = param.getProbabilityToMutate();
 		if(probability<0 || probability>1){
 			throw new IllegalArgumentException("probability must be between 0 and 1.");
 		}
-		//TODO: Do both methods
-		for(Allele a : alleles){
-			if(Math.random()<probability)
-				a.mutate();
-		}
+		param.getMutationType().mutate(alleles, probability);
 		
-		/*if(Math.random()<probability){
-			alleles.get((int)(Math.random()*alleles.size())).mutate();
+		/*if(RandomUtil.getRandom()<probability){
+			alleles.get((int)(RandomUtil.getRandom()*alleles.size())).mutate();
 		}*/
 	}
 	

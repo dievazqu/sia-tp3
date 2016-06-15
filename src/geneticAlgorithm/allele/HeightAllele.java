@@ -1,5 +1,7 @@
 package geneticAlgorithm.allele;
 
+import util.RandomUtil;
+
 /**
  * 
  *	Allele with value between 1.3 and 2.0
@@ -23,7 +25,7 @@ public class HeightAllele extends Allele {
 
 	@Override
 	public void mutate() {
-		value = Math.random()*0.7+1.3;
+		value = RandomUtil.getRandom()*0.7+1.3;
 	}
 	
 	public double getValue() {
@@ -46,6 +48,6 @@ public class HeightAllele extends Allele {
 	}
 	
 	public static HeightAllele getRandomAllele(){
-		return new HeightAllele(Math.random()*0.7+1.3);
+		return new HeightAllele(RandomUtil.getRandom()*0.7+1.3);
 	}
 }

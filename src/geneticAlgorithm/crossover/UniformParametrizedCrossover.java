@@ -1,11 +1,12 @@
 package geneticAlgorithm.crossover;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import geneticAlgorithm.allele.Allele;
 import geneticAlgorithm.individual.Individual;
 import geneticAlgorithm.individual.IndividualFactory;
-
-import java.util.ArrayList;
-import java.util.List;
+import util.RandomUtil;
 
 public class UniformParametrizedCrossover implements CrossoverReproduction {
 
@@ -15,7 +16,7 @@ public class UniformParametrizedCrossover implements CrossoverReproduction {
 		List<Allele> child1 = new ArrayList<Allele>(size);
 		List<Allele> child2 = new ArrayList<Allele>(size);
 		for(int i=0; i<size; i++){
-			if(Math.random()<0.5){
+			if(RandomUtil.getRandom()<0.5){
 				child1.add(i1.getAlleleAt(i).clone());
 				child2.add(i2.getAlleleAt(i).clone());
 			}else{

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import geneticAlgorithm.individual.Individual;
+import util.RandomUtil;
 
 public class RankingSelection implements Selectionable {
 
@@ -20,7 +21,7 @@ public class RankingSelection implements Selectionable {
 	}
 
 	private Individual getIndividualFromRanking(List<Individual> individuals) {
-		int index = (int) (Math.random() * Math.random() * individuals.size());
+		int index = (int) (RandomUtil.getRandom() * RandomUtil.getRandom() * individuals.size());
 		return individuals.get(index);
 	}
 

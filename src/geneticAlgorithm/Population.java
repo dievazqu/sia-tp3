@@ -10,7 +10,7 @@ import config.Param;
 public class Population {
 
 	private final Param param;
-	private final List<Individual> individuals;
+	private List<Individual> individuals;
 	private final IndividualFactory factory;
 	private int generation;
 
@@ -21,17 +21,15 @@ public class Population {
 		generation = 0;
 	}
 
-	public void evolute(int generations) {
-		for (int i = 0; i < generations; i++) {
+	public void evolute() {
+		while (!param.getEndConditionType().finish(param, this)) {
 			next();
 		}
 	}
 
 	private void next() {
-		List<Individual> newGeneration = param.getReplacementType().replace(param, factory, individuals, generation);
+		individuals = param.getReplacementType().replace(param, factory, individuals, generation);
 		generation++;
-		individuals.clear();
-		individuals.addAll(newGeneration);
 	}
 
 	@Override
@@ -41,5 +39,13 @@ public class Population {
 			stringBuilder.append(a.toString() + "\n");
 		}
 		return stringBuilder.toString();
+	}
+
+	public int getGeneration() {
+		return generation;
+	}
+
+	public List<Individual> getIndividuals() {
+		return individuals;
 	}
 }

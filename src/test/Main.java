@@ -19,9 +19,6 @@ import geneticAlgorithm.item.ItemsProvider;
 
 public class Main {
 
-	private static final int generationSize = 10;
-	private static final int maxEpochs = 100;
-
 	private static ItemsProvider weapons;
 	private static ItemsProvider boots;
 	private static ItemsProvider helmets;
@@ -30,19 +27,18 @@ public class Main {
 
 	public static void main(String[] args) {
 
+		Param param = new Param("config/default");
 		weapons = ItemParser.parseItems("equipamiento/armas.tsv");
 		boots = ItemParser.parseItems("equipamiento/botas.tsv");
 		helmets = ItemParser.parseItems("equipamiento/cascos.tsv");
 		gloves = ItemParser.parseItems("equipamiento/guantes.tsv");
 		mail = ItemParser.parseItems("equipamiento/pecheras.tsv");
 
-		List<Individual> list = createRandomIndividuals(generationSize);
+		List<Individual> list = createRandomIndividuals(param.getGenerationSize());
 
-		Population pop = new Population(new Param("config/default"), new ArcherFactory(), list);
-		for (int i = 0; i < maxEpochs; i++) {
-			System.out.println(pop);
-			pop.evolute(1);
-		}
+		Population pop = new Population(param, new ArcherFactory(), list);
+		pop.evolute();
+		System.out.println(pop);
 	}
 
 	private static List<Allele> getRandomCombination() {

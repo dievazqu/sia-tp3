@@ -1,9 +1,10 @@
 package geneticAlgorithm.selection;
 
-import geneticAlgorithm.individual.Individual;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import geneticAlgorithm.individual.Individual;
+import util.RandomUtil;
 
 public class RandomSelection implements Selectionable {
 
@@ -12,7 +13,7 @@ public class RandomSelection implements Selectionable {
 		int size = list.size();
 		List<Individual> ans = new ArrayList<Individual>(sizeOfNewList);
 		for (int i = 0; i < sizeOfNewList; i++) {
-			int randomIndex = (int) (Math.random() * size);
+			int randomIndex = RandomUtil.getRandom(size);
 			ans.add(list.get(randomIndex));
 		}
 		return ans;

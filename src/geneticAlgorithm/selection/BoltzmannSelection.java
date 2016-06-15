@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import geneticAlgorithm.individual.Individual;
+import util.RandomUtil;
 
 public class BoltzmannSelection implements Selectionable {
 
@@ -27,7 +28,7 @@ public class BoltzmannSelection implements Selectionable {
 		}
 		List<Individual> selection = new ArrayList<Individual>();
 		for(int i=0; i<sizeOfNewList; i++){
-			selection.add(relativesFitness.floorEntry(Math.random()).getValue());
+			selection.add(relativesFitness.floorEntry(RandomUtil.getRandom()).getValue());
 		}
 		return selection;
 	}

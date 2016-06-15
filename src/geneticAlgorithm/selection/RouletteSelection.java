@@ -1,10 +1,11 @@
 package geneticAlgorithm.selection;
 
-import geneticAlgorithm.individual.Individual;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
+
+import geneticAlgorithm.individual.Individual;
+import util.RandomUtil;
 
 public class RouletteSelection implements Selectionable{
 
@@ -22,7 +23,7 @@ public class RouletteSelection implements Selectionable{
 		}
 		List<Individual> selection = new ArrayList<Individual>();
 		for(int i=0; i<sizeOfNewList; i++){
-			selection.add(relativesFitness.floorEntry(Math.random()).getValue());
+			selection.add(relativesFitness.floorEntry(RandomUtil.getRandom()).getValue());
 		}
 		return selection;
 	}

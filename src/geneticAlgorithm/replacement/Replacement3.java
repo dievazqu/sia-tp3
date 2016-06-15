@@ -8,26 +8,20 @@ import java.util.List;
 
 import config.Param;
 
-public class Replacement3 implements Replacement {
-	@Override
-	public List<Individual> replace(Param param, IndividualFactory factory, List<Individual> generation, int generationNumber) {
-		List<Individual> selection = param.getSelectionType().selection(generation, param.getSelectionSize(), generationNumber);
-		List<Individual> children = new ArrayList<Individual>();
-		for(int i=1; i<selection.size(); i+=2){
-			children.addAll(param.getCrossoverType().reproduce(factory, selection.get(i), selection.get(i-1)));
+public class Replacement3 extends BaseReplacement implements Replacement {
+	
+		// De los N+K agarra N
+		@Override
+		public List<Individual> chooseNextGeneration(Param param, List<Individual> generation, List<Individual> children, int generationNumber) {
+			List<Individual> ans = new ArrayList<>();
+			generation.addAll(children);
+			
+			int third = (int)Math.round(param.getB()*(generation.size()-children.size()));
+			int fourth = param.getSelectionSize()-third;
+			List<Individual> selection = param.getSelectionType(0).selection(generation, third, generationNumber);
+			List<Individual> selectionSecond = param.getSelectionType(1).selection(generation, fourth, generationNumber);
+			ans.addAll(selection);
+			ans.addAll(selectionSecond);
+			return ans;
 		}
-		if(generation.size()%2==1){
-			//TODO: preguntar que hacer para este caso.
-		}
-		for(Individual i : children){
-			i.mutate(param.getProbabilityToMutate());
-		}
-		int size = generation.size();
-		generation.addAll(children);
-		List<Individual> nextGeneration = new ArrayList<Individual>(size);
-		for(int i=0; i<size; i++){
-			nextGeneration.add(generation.remove((int)(Math.random()*generation.size())));
-		}
-		return nextGeneration;
-	}
 }

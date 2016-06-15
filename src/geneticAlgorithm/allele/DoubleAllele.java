@@ -3,6 +3,8 @@ package geneticAlgorithm.allele;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.RandomUtil;
+
 /**
  * 
  *	Allele with value between 0 and 1.
@@ -23,7 +25,7 @@ public class DoubleAllele extends Allele {
 
 	@Override
 	public void mutate() {
-		value = Math.random();
+		value = RandomUtil.getRandom();
 	}
 	
 	public double getValue() {
@@ -55,7 +57,7 @@ public class DoubleAllele extends Allele {
 	public static List<Allele> initialDoubleAlleles(int size){
 		List<Allele> list = new ArrayList<Allele>(size);
 		for(int i=0; i<size; i++){
-			list.add(new DoubleAllele(Math.random()));
+			list.add(new DoubleAllele(RandomUtil.getRandom()));
 		}
 		return list;
 	}

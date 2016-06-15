@@ -2,6 +2,8 @@ package geneticAlgorithm.item;
 
 import java.util.List;
 
+import util.RandomUtil;
+
 public class ItemsProvider {
 
 	List<Item> items;
@@ -15,7 +17,7 @@ public class ItemsProvider {
 	}
 	
 	public int getRandomIndex() {
-		return (int) (Math.random() * items.size());
+		return (int) (RandomUtil.getRandom(0, items.size()));
 	}
 	
 }

@@ -1,5 +1,14 @@
 package test;
 
+import geneticAlgorithm.Population;
+import geneticAlgorithm.allele.Allele;
+import geneticAlgorithm.allele.HeightAllele;
+import geneticAlgorithm.allele.ItemAllele;
+import geneticAlgorithm.individual.ArcherFactory;
+import geneticAlgorithm.individual.Individual;
+import geneticAlgorithm.individual.IndividualFactory;
+import geneticAlgorithm.item.ItemsProvider;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -16,20 +25,11 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
+import ui.GraphicChart;
 import config.ItemParser;
 import config.Param;
-import geneticAlgorithm.Population;
-import geneticAlgorithm.allele.Allele;
-import geneticAlgorithm.allele.HeightAllele;
-import geneticAlgorithm.allele.ItemAllele;
-import geneticAlgorithm.individual.ArcherFactory;
-import geneticAlgorithm.individual.Individual;
-import geneticAlgorithm.individual.IndividualFactory;
-import geneticAlgorithm.item.ItemsProvider;
 
-public class Main extends ApplicationFrame {
-
-	private static final long serialVersionUID = 1L;
+public class Main {
 
 	private static ItemsProvider weapons;
 	private static ItemsProvider boots;
@@ -38,7 +38,6 @@ public class Main extends ApplicationFrame {
 	private static ItemsProvider mail;
 
 	private Main() {
-		super("SIA - TP3");
 		Param param = new Param("config/default");
 		weapons = ItemParser.parseItems("equipamiento/armas.tsv");
 		boots = ItemParser.parseItems("equipamiento/botas.tsv");
@@ -46,37 +45,13 @@ public class Main extends ApplicationFrame {
 		gloves = ItemParser.parseItems("equipamiento/guantes.tsv");
 		mail = ItemParser.parseItems("equipamiento/pecheras.tsv");
 
-		List<Individual> list = createRandomIndividuals(param.getGenerationSize());
-
-		final XYSeries series = new XYSeries("");
-		
+		List<Individual> list = createRandomIndividuals(param
+				.getGenerationSize());
 		Population pop = new Population(param, new ArcherFactory(), list);
-		
-		while (!param.getEndConditionType().finish(param, pop)) {
-			pop.evolute();
-			double average = pop.getIndividuals().stream().mapToDouble(i -> i.getFitness()).average().getAsDouble();
-			series.add(pop.getGeneration(), average);
-		}
-		
+		GraphicChart graphicChart = new GraphicChart();
+		pop.evolute(graphicChart);
 		System.out.println(pop);
-
-		final XYSeriesCollection dataset = new XYSeriesCollection();
-		dataset.addSeries(series);
-		
-		JFreeChart xylineChart = ChartFactory.createXYLineChart("", "Generation", "Fitness", dataset,
-				PlotOrientation.VERTICAL, false, false, false);
-
-		ChartPanel chartPanel = new ChartPanel(xylineChart);
-		chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
-		final XYPlot plot = xylineChart.getXYPlot();
-		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
-		renderer.setSeriesPaint(0, Color.RED);
-		plot.setRenderer(renderer);
-		setContentPane(chartPanel);
-
-		pack();
-		RefineryUtilities.centerFrameOnScreen(this);
-		setVisible(true);
+		graphicChart.draw();
 	}
 
 	private List<Allele> getRandomCombination() {

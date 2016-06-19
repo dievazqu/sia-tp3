@@ -5,6 +5,7 @@ import geneticAlgorithm.individual.IndividualFactory;
 
 import java.util.List;
 
+import ui.GraphicChart;
 import config.Param;
 
 public class Population {
@@ -21,11 +22,26 @@ public class Population {
 		generation = 0;
 	}
 
-	public void evolute() {
-//		while (!param.getEndConditionType().finish(param, this)) {
-//			next();
-//		}
-		next();
+	public void evolute(){
+		while (!param.getEndConditionType().finish(param, this)) {
+			next();
+		}
+	}
+	
+	public void evolute(GraphicChart graphicChart) {
+		while (!param.getEndConditionType().finish(param, this)) {
+			next();
+			graphicChart.addAvgValue(generation, averageFitness());
+			graphicChart.addMaxValue(generation, maxFitness());
+		}
+	}
+	
+	public double averageFitness(){
+		return individuals.stream().mapToDouble(i->i.getFitness()).average().getAsDouble();
+	}
+	
+	public double maxFitness(){
+		return individuals.stream().mapToDouble(i->i.getFitness()).max().getAsDouble();
 	}
 
 	private void next() {

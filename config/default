@@ -12,5 +12,6 @@ selectionSize=400
 maxFitness=30
 probabilityToMutate=0.01
 mutationType=UNIFORM
-endConditionType=STRUCTURE
+endConditionType=GENERATIONS
 maxSteps=100
+maxGeneration=30

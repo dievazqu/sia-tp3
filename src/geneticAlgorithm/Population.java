@@ -22,9 +22,10 @@ public class Population {
 	}
 
 	public void evolute() {
-		while (!param.getEndConditionType().finish(param, this)) {
-			next();
-		}
+//		while (!param.getEndConditionType().finish(param, this)) {
+//			next();
+//		}
+		next();
 	}
 
 	private void next() {

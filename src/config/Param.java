@@ -21,11 +21,12 @@ public final class Param {
 	private double maxFitness = 20;
 	private int generationSize = 1000;
 	private int selectionSize = 400;
-	private double probabilityToMutate;
-	private MutationType mutationType;
-	private int maxSteps;
-	private double A;
-	private double B;
+	private double probabilityToCrossover = 1.0;
+	private double probabilityToMutate = 0.1;
+	private MutationType mutationType = MutationType.UNIFORM;
+	private int maxSteps = 100;
+	private double A = 1.0;
+	private double B = 1.0;
 
 	public Param(String fileName) {
 		selectionType = new SelectionType[4];
@@ -69,6 +70,9 @@ public final class Param {
 					break;
 				case "maxFitness":
 					maxFitness = Double.valueOf(keyValue[1]);
+					break;
+				case "probabilityToCrossover":
+					probabilityToCrossover = Double.valueOf(keyValue[1]);
 					break;
 				case "probabilityToMutate":
 					probabilityToMutate = Double.valueOf(keyValue[1]);
@@ -143,6 +147,10 @@ public final class Param {
 	
 	public int getMaxSteps() {
 		return maxSteps;
+	}
+	
+	public double getProbabilityToCrossover() {
+		return probabilityToCrossover;
 	}
 	
 }

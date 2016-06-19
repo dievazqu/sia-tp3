@@ -20,12 +20,16 @@ public abstract class BaseReplacement implements Replacement {
 		List<Individual> selectionSecond = param.getSelectionType(1).selection(generation, second, generationNumber);
 		selection.addAll(selectionSecond);
 		List<Individual> children = new ArrayList<Individual>();
-		for(int i=1; i<selection.size(); i+=2){
-			children.addAll(param.getCrossoverType().reproduce(factory, selection.get(i), selection.get(i-1)));
-		}
-		if(selection.size()%2==1){
-			int indexRandom = RandomUtil.getRandom(selection.size()-1);
-			children.add(param.getCrossoverType().reproduce(factory, selection.get(indexRandom), selection.get(selection.size()-1)).get(0));
+		if(RandomUtil.getRandom()<param.getProbabilityToCrossover()){
+			for(int i=1; i<selection.size(); i+=2){
+				children.addAll(param.getCrossoverType().reproduce(factory, selection.get(i), selection.get(i-1)));
+			}
+			if(selection.size()%2==1){
+				int indexRandom = RandomUtil.getRandom(selection.size()-1);
+				children.add(param.getCrossoverType().reproduce(factory, selection.get(indexRandom), selection.get(selection.size()-1)).get(0));
+			}
+		}else{
+			children.addAll(selection);
 		}
 		for(Individual i : children){
 			i.mutate(param);

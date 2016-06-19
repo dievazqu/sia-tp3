@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 import geneticAlgorithm.item.Item;
@@ -20,6 +21,7 @@ public class ItemParser {
 			while (scanner.hasNext()) {
 				Scanner lineScanner = new Scanner(scanner.nextLine());
 				// Should we use the id?
+				lineScanner.useLocale(Locale.US);
 				int id = lineScanner.nextInt();
 				double str = lineScanner.nextDouble();
 				double agi = lineScanner.nextDouble();

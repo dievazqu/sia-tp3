@@ -14,13 +14,13 @@ import util.RandomUtil;
 public final class Param {
 
 	private int generationSize = 2000;
-	private int selectionSize = 8;
-	private double generationGap = 0.6;
+	private int selectionSize = 1500;
+	private double generationGap = -1;
 	private double probabilityToCrossover = 0.95;
-	private double probabilityToMutate = 0.2;
-	private MutationType mutationType = MutationType.CLASSIC;
-	private ReplacementType replacementType = ReplacementType.GENERATIONGAP;
-	private CrossoverType crossoverType = CrossoverType.TWO_POINT;
+	private double probabilityToMutate = 0.01;
+	private MutationType mutationType = MutationType.UNIFORM;
+	private ReplacementType replacementType = ReplacementType.REPLACE_3;
+	private CrossoverType crossoverType = CrossoverType.UNIFORM_PARAMETRIZED;
 	private SelectionType[] selectionType = new SelectionType[]{SelectionType.ELITE, SelectionType.BOLTZMANN, SelectionType.TOURNAMENT_DETERMINISTIC, SelectionType.ROULETTE};
 	private double A = 0.5;
 	private double B = 0.5;

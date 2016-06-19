@@ -28,10 +28,7 @@ public abstract class Individual implements Comparable<Individual> {
 			throw new IllegalArgumentException("probability must be between 0 and 1.");
 		}
 		param.getMutationType().mutate(alleles, probability);
-		
-		/*if(RandomUtil.getRandom()<probability){
-			alleles.get((int)(RandomUtil.getRandom()*alleles.size())).mutate();
-		}*/
+		fitness=null;
 	}
 	
 	public double getFitness(){
@@ -56,7 +53,7 @@ public abstract class Individual implements Comparable<Individual> {
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
 		for(Allele a : alleles){
-			//stringBuilder.append(a.toString()+" - ");
+			stringBuilder.append(a.toString()+" - ");
 		}
 		stringBuilder.append(" fitness: "+getFitness());
 		return stringBuilder.toString();

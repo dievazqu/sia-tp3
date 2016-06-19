@@ -54,6 +54,15 @@ public class Main {
 
 		System.out.println(pop.getGeneration());
 		System.out.println(String.valueOf(pop.maxFitness()).replace('.', ','));
+		System.out.println(pop.getIndividuals().stream().max((i,j) -> j.compareTo(i)).get());
+		/*List<Allele> listt =new ArrayList<Allele>();
+		listt.add(new HeightAllele(2));
+		listt.add(new ItemAllele(weapons, 110));
+		listt.add(new ItemAllele(boots, 130));
+		listt.add(new ItemAllele(helmets, 13));
+		listt.add(new ItemAllele(gloves, 11));
+		listt.add(new ItemAllele(mail, 190));
+		System.out.println(new ArcherFactory().createIndividual(listt));*/
 	}
 
 	private List<Allele> getRandomCombination() {

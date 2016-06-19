@@ -13,23 +13,24 @@ import util.RandomUtil;
 
 public final class Param {
 
-	private ReplacementType replacementType = ReplacementType.ALL;
-	private CrossoverType crossoverType = CrossoverType.UNIFORM_PARAMETRIZED;
-	private SelectionType[] selectionType = new SelectionType[]{SelectionType.ELITE, SelectionType.ELITE, SelectionType.ELITE, SelectionType.ELITE};
-	private EndConditionType endConditionType = EndConditionType.GENERATIONS;
-	private int maxGeneration = 1000;
+	private int generationSize = 2000;
+	private int selectionSize = 8;
+	private double generationGap = 0.6;
+	private double probabilityToCrossover = 0.95;
+	private double probabilityToMutate = 0.2;
+	private MutationType mutationType = MutationType.CLASSIC;
+	private ReplacementType replacementType = ReplacementType.GENERATIONGAP;
+	private CrossoverType crossoverType = CrossoverType.TWO_POINT;
+	private SelectionType[] selectionType = new SelectionType[]{SelectionType.ELITE, SelectionType.BOLTZMANN, SelectionType.TOURNAMENT_DETERMINISTIC, SelectionType.ROULETTE};
+	private double A = 0.5;
+	private double B = 0.5;
+	private EndConditionType endConditionType = EndConditionType.CONTENT;
+	private int maxGeneration = 2;
 	private double maxFitness = 20;
-	private int generationSize = 1000;
-	private int selectionSize = 400;
-	private double probabilityToCrossover = 1.0;
-	private double probabilityToMutate = 0.1;
-	private MutationType mutationType = MutationType.UNIFORM;
-	private int maxSteps = 100;
-	private double A = 1.0;
-	private double B = 1.0;
+	private int maxSteps = 500;
+	private int seed = 1;
 
 	public Param(String fileName) {
-		selectionType = new SelectionType[4];
 		try {
 			Scanner scanner = new Scanner(new File(fileName));
 			while (scanner.hasNext()) {
@@ -84,13 +85,14 @@ public final class Param {
 					B = Double.valueOf(keyValue[1]);
 					break;
 				case "seed":
-					RandomUtil.init(Integer.valueOf(keyValue[1]));
+					seed = Integer.valueOf(keyValue[1]);
 					break;
 				case "endConditionType":
 					endConditionType = EndConditionType.valueOf(keyValue[1]);
 					break;
 				}
 			}
+			RandomUtil.init(seed);
 			scanner.close();
 		}  catch (IOException e) {
 			e.printStackTrace();
@@ -153,4 +155,7 @@ public final class Param {
 		return probabilityToCrossover;
 	}
 	
+	public double getGenerationGap() {
+		return generationGap;
+	}
 }

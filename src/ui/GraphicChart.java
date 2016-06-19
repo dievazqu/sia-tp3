@@ -43,12 +43,13 @@ public class GraphicChart extends ApplicationFrame{
 				PlotOrientation.VERTICAL, true, false, false);
 
 		ChartPanel chartPanel = new ChartPanel(xylineChart);
-		chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
 		final XYPlot plot = xylineChart.getXYPlot();
 		plot.getRangeAxis().setRange(10,40);
 		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
 		renderer.setSeriesPaint(0, Color.RED);
-		renderer.setSeriesPaint(1, Color.BLUE);	
+		renderer.setSeriesShapesVisible(0, false);
+		renderer.setSeriesPaint(1, Color.BLUE);
+		renderer.setSeriesShapesVisible(1, false);
 		plot.setRenderer(renderer);
 		setContentPane(chartPanel);
 

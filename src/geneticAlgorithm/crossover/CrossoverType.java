@@ -7,8 +7,8 @@ import geneticAlgorithm.individual.IndividualFactory;
 
 public enum CrossoverType {
 	ONE_POINT(new OnePointCrossover()),
-	TWO_POINT(null),
-	ANULAR(null),
+	TWO_POINT(new TwoPointCrossover()),
+	ANULAR(new AnularCrossover()),
 	UNIFORM_PARAMETRIZED(new UniformParametrizedCrossover());
 
 	CrossoverReproduction crossoverReproduction;

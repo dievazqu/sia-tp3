@@ -8,10 +8,10 @@ import java.util.List;
 
 import config.Param;
 
-public class Replacement2 extends BaseReplacement implements Replacement {
+public class GenerationGapReplacement extends BaseReplacement implements Replacement {
 	
 	
-	// N-k de los padres y los k hijos
+	// (1-G)xN de los padres y los GxN hijos
 	@Override
 	public List<Individual> chooseNextGeneration(Param param, List<Individual> generation, List<Individual> children, int generationNumber) {
 		List<Individual> ans = new ArrayList<>();
@@ -24,5 +24,10 @@ public class Replacement2 extends BaseReplacement implements Replacement {
 		ans.addAll(selection);
 		ans.addAll(selectionSecond);
 		return ans;
+	}
+	
+	@Override
+	public int getSelectionSize(Param param, int generationSize) {
+		return (int)(param.getGenerationGap()*generationSize);
 	}
 }

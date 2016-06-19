@@ -15,7 +15,7 @@ public abstract class BaseReplacement implements Replacement {
 			int generationNumber) {
 		int generationSize = generation.size();
 		int first = (int)Math.round(param.getA()*getSelectionSize(param, generationSize));
-		int second = param.getSelectionSize()-first;
+		int second = getSelectionSize(param, generationSize)-first;
 		List<Individual> selection = param.getSelectionType(0).selection(generation, first, generationNumber);
 		List<Individual> selectionSecond = param.getSelectionType(1).selection(generation, second, generationNumber);
 		selection.addAll(selectionSecond);

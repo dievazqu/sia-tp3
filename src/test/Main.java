@@ -50,8 +50,10 @@ public class Main {
 		Population pop = new Population(param, new ArcherFactory(), list);
 		GraphicChart graphicChart = new GraphicChart();
 		pop.evolute(graphicChart);
-		System.out.println(pop);
 		graphicChart.draw();
+
+		System.out.println(pop.getGeneration());
+		System.out.println(String.valueOf(pop.maxFitness()).replace('.', ','));
 	}
 
 	private List<Allele> getRandomCombination() {

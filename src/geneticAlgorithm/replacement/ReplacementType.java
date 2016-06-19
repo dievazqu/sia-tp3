@@ -8,7 +8,8 @@ import java.util.List;
 import config.Param;
 
 public enum ReplacementType {
-	ALL(new ReplacementAll()), REPLACE_2(new Replacement2()), REPLACE_3(new Replacement3()), MIXED(null);
+	ALL(new ReplacementAll()), REPLACE_2(new Replacement2()), REPLACE_3(
+			new Replacement3()), GENERATIONGAP(new GenerationGapReplacement());
 
 	private Replacement replacement;
 
@@ -16,7 +17,9 @@ public enum ReplacementType {
 		this.replacement = replacement;
 	}
 
-	public List<Individual> replace(Param param, IndividualFactory factory, List<Individual> generation, int generationNumber) {
-		return replacement.replace(param, factory, generation, generationNumber);
+	public List<Individual> replace(Param param, IndividualFactory factory,
+			List<Individual> generation, int generationNumber) {
+		return replacement
+				.replace(param, factory, generation, generationNumber);
 	}
 }

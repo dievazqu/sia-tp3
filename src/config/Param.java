@@ -14,16 +14,16 @@ import util.RandomUtil;
 public final class Param {
 
 	private int generationSize = 2000;
-	private int selectionSize = 1500;
-	private double generationGap = -1;
+	private int selectionSize = 0;
+	private double generationGap = 0.6;
 	private double probabilityToCrossover = 0.95;
 	private double probabilityToMutate = 0.01;
 	private MutationType mutationType = MutationType.UNIFORM;
-	private ReplacementType replacementType = ReplacementType.REPLACE_3;
+	private ReplacementType replacementType = ReplacementType.GENERATIONGAP;
 	private CrossoverType crossoverType = CrossoverType.UNIFORM_PARAMETRIZED;
-	private SelectionType[] selectionType = new SelectionType[]{SelectionType.ELITE, SelectionType.BOLTZMANN, SelectionType.TOURNAMENT_DETERMINISTIC, SelectionType.ROULETTE};
-	private double A = 0.5;
-	private double B = 0.5;
+	private SelectionType[] selectionType = new SelectionType[]{SelectionType.ROULETTE, SelectionType.ELITE, SelectionType.RANDOM, SelectionType.ELITE};
+	private double A = 1.0;
+	private double B = 1.0;
 	private EndConditionType endConditionType = EndConditionType.CONTENT;
 	private int maxGeneration = 2;
 	private double maxFitness = 20;

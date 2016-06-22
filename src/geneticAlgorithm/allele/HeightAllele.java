@@ -34,7 +34,7 @@ public class HeightAllele extends Allele {
 	
 	@Override
 	public String toString() {
-		return String.format("%.3f", value);
+		return String.format("%.10f", value);
 	}
 	
 	public double getAttackModifier(){

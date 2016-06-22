@@ -10,7 +10,8 @@ public enum SelectionType {
 	RANDOM(new RandomSelection()),
 	ROULETTE(new RouletteSelection()),
 	UNIVERSAL(new UniversalSelection()),
-	BOLTZMANN(new BoltzmannSelection()),
+	BOLTZMANN(new BoltzmannSelection(0.9)),
+	BOLTZMANN99(new BoltzmannSelection(0.99)),
 	TOURNAMENT_DETERMINISTIC(new TournamentDeterministicSelection()),
 	TOURNAMENT_PROBABILISTIC(new TournamentProbabilisticSelection()),
 	RANKING(new RankingSelection());

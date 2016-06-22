@@ -21,11 +21,15 @@ public final class Param {
 	private MutationType mutationType = MutationType.UNIFORM;
 	private ReplacementType replacementType = ReplacementType.GENERATIONGAP;
 	private CrossoverType crossoverType = CrossoverType.UNIFORM_PARAMETRIZED;
-	private SelectionType[] selectionType = new SelectionType[]{SelectionType.ROULETTE, SelectionType.ELITE, SelectionType.RANDOM, SelectionType.ELITE};
-	private double A = 1.0;
-	private double B = 1.0;
+	private SelectionType[] selectionType = new SelectionType[]{
+			SelectionType.ELITE,
+			SelectionType.BOLTZMANN,
+			SelectionType.ELITE,
+			SelectionType.BOLTZMANN};
+	private double A = 0.5;
+	private double B = 0.5;
 	private EndConditionType endConditionType = EndConditionType.CONTENT;
-	private int maxGeneration = 2;
+	private int maxGeneration = 0;
 	private double maxFitness = 20;
 	private int maxSteps = 500;
 	private int seed = 1;

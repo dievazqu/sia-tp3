@@ -8,6 +8,7 @@ import geneticAlgorithm.individual.ArcherFactory;
 import geneticAlgorithm.individual.Individual;
 import geneticAlgorithm.individual.IndividualFactory;
 import geneticAlgorithm.item.ItemsProvider;
+import geneticAlgorithm.selection.SelectionType;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -25,7 +26,10 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
+import com.orsoncharts.graphics3d.Utils2D;
+
 import ui.GraphicChart;
+import util.RandomUtil;
 import config.ItemParser;
 import config.Param;
 
@@ -37,14 +41,14 @@ public class Main {
 	private static ItemsProvider gloves;
 	private static ItemsProvider mail;
 
-	private Main() {
+	private Main(String[] args) {
 		Param param = new Param("config/default");
 		weapons = ItemParser.parseItems("equipamiento/armas.tsv");
 		boots = ItemParser.parseItems("equipamiento/botas.tsv");
 		helmets = ItemParser.parseItems("equipamiento/cascos.tsv");
 		gloves = ItemParser.parseItems("equipamiento/guantes.tsv");
 		mail = ItemParser.parseItems("equipamiento/pecheras.tsv");
-
+		/*List<Individual> list = createBadIndividuals(param.getGenerationSize());*/
 		List<Individual> list = createRandomIndividuals(param
 				.getGenerationSize());
 		Population pop = new Population(param, new ArcherFactory(), list);
@@ -56,13 +60,43 @@ public class Main {
 		System.out.println(String.valueOf(pop.maxFitness()).replace('.', ','));
 		System.out.println(pop.getIndividuals().stream().max((i,j) -> j.compareTo(i)).get());
 		/*List<Allele> listt =new ArrayList<Allele>();
-		listt.add(new HeightAllele(2));
+		listt.add(new HeightAllele(1.9151925719));
+		listt.add(new ItemAllele(weapons, 110));
+		listt.add(new ItemAllele(boots, 130));
+		listt.add(new ItemAllele(helmets, 13));
+		listt.add(new ItemAllele(gloves, 11));
+		listt.add(new ItemAllele(mail, 190));
+		System.out.println(new ArcherFactory().createIndividual(listt));
+		listt =new ArrayList<Allele>();
+		listt.add(new HeightAllele(1.9151925720));
 		listt.add(new ItemAllele(weapons, 110));
 		listt.add(new ItemAllele(boots, 130));
 		listt.add(new ItemAllele(helmets, 13));
 		listt.add(new ItemAllele(gloves, 11));
 		listt.add(new ItemAllele(mail, 190));
 		System.out.println(new ArcherFactory().createIndividual(listt));*/
+	}
+	
+	/* 1,9151925720 - Item #102 - Item #199 - Item #173 - Item #109 - Item #78 */
+
+	private List<Individual> createBadIndividuals(int generationSize) {
+		IndividualFactory factory = new ArcherFactory();
+		List<Individual> list = new ArrayList<Individual>();
+		for (int i = 0; i < generationSize; i++) {
+			list.add(factory.createIndividual(getBadCombination()));
+		}
+		return list;
+	}
+	
+	private List<Allele> getBadCombination() {
+		List<Allele> alleles = new LinkedList<>();
+		alleles.add(new HeightAllele(1.9151925720));
+		alleles.add(new ItemAllele(weapons, 102));
+		alleles.add(new ItemAllele(boots, 199));
+		alleles.add(new ItemAllele(helmets, 173));
+		alleles.add(new ItemAllele(gloves, 109));
+		alleles.add(new ItemAllele(mail, 78));
+		return alleles;
 	}
 
 	private List<Allele> getRandomCombination() {
@@ -86,7 +120,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		new Main();
+		new Main(args);
 	}
 
 }

@@ -10,7 +10,12 @@ import util.RandomUtil;
 
 public class BoltzmannSelection implements Selectionable {
 
-	Map<Individual, Double> mem;
+	private Map<Individual, Double> mem;
+	private double decreaseFactor;
+	
+	public BoltzmannSelection(double decreaseFactor) {
+		this.decreaseFactor=decreaseFactor;
+	}
 	
 	@Override
 	public List<Individual> selection(List<Individual> list, int sizeOfNewList, int generation) {
@@ -43,7 +48,7 @@ public class BoltzmannSelection implements Selectionable {
 	}
 
 	private double getTemperature(int generation) {
-		return Math.max(1, 100*Math.pow(0.9, generation)); 
+		return Math.max(1, 100*Math.pow(decreaseFactor, generation)); 
 	}
 	
 }

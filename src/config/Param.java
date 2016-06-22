@@ -14,10 +14,10 @@ import util.RandomUtil;
 public final class Param {
 
 	private int generationSize = 2000;
-	private int selectionSize = 0;
+	private int selectionSize = 1200;
 	private double generationGap = 0.6;
 	private double probabilityToCrossover = 0.95;
-	private double probabilityToMutate = 0.001;
+	private double probabilityToMutate = 0.01;
 	private MutationType mutationType = MutationType.UNIFORM;
 	private ReplacementType replacementType = ReplacementType.GENERATIONGAP;
 	private CrossoverType crossoverType = CrossoverType.UNIFORM_PARAMETRIZED;

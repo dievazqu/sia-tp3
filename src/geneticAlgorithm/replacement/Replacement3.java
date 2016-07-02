@@ -17,7 +17,7 @@ public class Replacement3 extends BaseReplacement implements Replacement {
 			generation.addAll(children);
 			
 			int third = (int)Math.round(param.getB()*(generation.size()-children.size()));
-			int fourth = param.getSelectionSize()-third;
+			int fourth = (generation.size()-children.size())-third;
 			List<Individual> selection = param.getSelectionType(2).selection(generation, third, generationNumber);
 			List<Individual> selectionSecond = param.getSelectionType(3).selection(generation, fourth, generationNumber);
 			ans.addAll(selection);

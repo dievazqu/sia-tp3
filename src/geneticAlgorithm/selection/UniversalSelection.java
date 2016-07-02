@@ -25,7 +25,7 @@ public class UniversalSelection implements Selectionable{
 		double r_j = RandomUtil.getRandom()/sizeOfNewList;
 		for(int i=0; i<sizeOfNewList; i++){
 			selection.add(relativesFitness.floorEntry(r_j).getValue());
-			r_j+=(1/sizeOfNewList);
+			r_j+=(1.0/sizeOfNewList);
 		}
 		return selection;
 	}

@@ -48,7 +48,7 @@ public class BoltzmannSelection implements Selectionable {
 	}
 
 	private double getTemperature(int generation) {
-		return Math.max(1, 100*Math.pow(decreaseFactor, generation)); 
+		return Math.max(2, 100*Math.pow(decreaseFactor, generation)); 
 	}
 	
 }

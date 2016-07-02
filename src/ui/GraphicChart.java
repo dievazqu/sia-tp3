@@ -15,12 +15,13 @@ import org.jfree.ui.RefineryUtilities;
 
 public class GraphicChart extends ApplicationFrame{
 	
-	private final XYSeries avgSeries, maxSeries;
+	private final XYSeries avgSeries, maxSeries, minSeries;
 	
 	public GraphicChart(){
 		super("SIA - TP3");
 		avgSeries = new XYSeries("Average Fitness");
 		maxSeries = new XYSeries("Maximum Fitness");
+		minSeries = new XYSeries("Minimum Fitness");
 	}
 	
 	public void addAvgValue(double x, double y){
@@ -31,23 +32,30 @@ public class GraphicChart extends ApplicationFrame{
 		maxSeries.add(x, y);
 	}
 	
+	public void addMinValue(double x, double y){
+		minSeries.add(x, y);
+	}
+	
 	
 	public void draw(){
 		final XYSeriesCollection dataset = new XYSeriesCollection();
 		dataset.addSeries(avgSeries);
 		dataset.addSeries(maxSeries);
+		dataset.addSeries(minSeries);
 		
 		JFreeChart xylineChart = ChartFactory.createXYLineChart("", "Generation", "Fitness", dataset,
 				PlotOrientation.VERTICAL, true, false, false);
 
 		ChartPanel chartPanel = new ChartPanel(xylineChart);
 		final XYPlot plot = xylineChart.getXYPlot();
-		plot.getRangeAxis().setRange(10,40);
+		plot.getRangeAxis().setRange(0,40);
 		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
 		renderer.setSeriesPaint(0, Color.RED);
 		renderer.setSeriesShapesVisible(0, false);
 		renderer.setSeriesPaint(1, Color.BLUE);
 		renderer.setSeriesShapesVisible(1, false);
+		renderer.setSeriesPaint(2, Color.GREEN);
+		renderer.setSeriesShapesVisible(2, false);
 		plot.setRenderer(renderer);
 		setContentPane(chartPanel);
 		pack();

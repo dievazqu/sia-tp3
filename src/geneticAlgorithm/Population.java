@@ -6,6 +6,7 @@ import geneticAlgorithm.individual.IndividualFactory;
 import java.util.List;
 
 import ui.GraphicChart;
+import util.Pair;
 import config.Param;
 
 public class Population {
@@ -34,6 +35,15 @@ public class Population {
 			next();
 			graphicChart.addAvgValue(generation, averageFitness());
 			graphicChart.addMaxValue(generation, maxFitness());
+			graphicChart.addMinValue(generation, minFitness());
+		}
+		param.getEndConditionType().clear();
+	}
+	
+	public void evolute(List<Pair> serie) {
+		while (!param.getEndConditionType().finish(param, this)) {
+			next();
+			serie.add(new Pair(generation, maxFitness()));
 		}
 		param.getEndConditionType().clear();
 	}

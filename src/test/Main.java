@@ -8,11 +8,13 @@ import geneticAlgorithm.individual.ArcherFactory;
 import geneticAlgorithm.individual.Individual;
 import geneticAlgorithm.individual.IndividualFactory;
 import geneticAlgorithm.item.ItemsProvider;
+import geneticAlgorithm.selection.SelectionType;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import ui.GraphicChart;
 import ui.GraphicStatisticsChart;
 import util.Pair;
 import config.ItemParser;
@@ -33,44 +35,76 @@ public class Main {
 		helmets = ItemParser.parseItems("equipamiento/cascos.tsv");
 		gloves = ItemParser.parseItems("equipamiento/guantes.tsv");
 		mail = ItemParser.parseItems("equipamiento/pecheras.tsv");
-		/*List<Individual> list = createBadIndividuals(param.getGenerationSize());*/
-		List<Pair> output = new LinkedList<>();
-		for(int i=20; i<=200; i+=10){
-			param.setGenerationSize(i);
-			List<Individual> list = createRandomIndividuals(param
-					.getGenerationSize());
-			Population pop = makePopulation(param, list);
-			double maxFitness = pop.maxFitness();
-			System.out.println(i+": "+String.valueOf(maxFitness).replace('.', ','));
-			output.add(new Pair(i, maxFitness));
-		}
-		GraphicStatisticsChart gsc = new GraphicStatisticsChart();
-		gsc.addPoints(output, ".");
-		gsc.draw("GenerationSize", "MaxFitness");
-		/*List<Individual> list = createRandomIndividuals(param
+		runTests(param);
+		//runUniqueTest(param);
+	}
+
+	public void runUniqueTest(Param param) {
+		List<Individual> list = createRandomIndividuals(param
 				.getGenerationSize());
-		for(Individual i : list){
-			System.out.println(i);
-		}
-		Population pop = makePopulation(param, list);
-		double max=0;
+		GraphicChart gc = new GraphicChart();
+		Population pop = makePopulation(param, list, gc);
+		gc.draw();
+		double max = 0;
 		Individual maxI = null;
-		for(Individual i : pop.getIndividuals()){
-			if(i.getFitness()>max){
-				maxI=i;
-				max=i.getFitness();
+		for (Individual i : pop.getIndividuals()) {
+			if (i.getFitness() > max) {
+				maxI = i;
+				max = i.getFitness();
 			}
 		}
+		System.out.println(maxI);
 		System.out.println();
-		System.out.println(maxI);*/
+		System.out.println(pop);
 	}
-	
-	public Population makePopulation(Param param, List<Individual> initialPopulation){
-		Population pop = new Population(param, new ArcherFactory(), initialPopulation);
+
+	public void runTests(Param param) {
+		
+		
+		SelectionType[] s = {SelectionType.RANDOM, SelectionType.BOLTZMANN99, SelectionType.RANKING, SelectionType.ROULETTE,
+				SelectionType.TOURNAMENT_DETERMINISTIC, SelectionType.TOURNAMENT_PROBABILISTIC, SelectionType.UNIVERSAL, SelectionType.BOLTZMANN, SelectionType.ELITE};
+		List<Pair>[] lists = new LinkedList[s.length];
+		GraphicStatisticsChart gsc = new GraphicStatisticsChart();
+		for (int i = 0; i < s.length; i++){
+			lists[i]=new LinkedList<Pair>();
+			param.setSelectionType(s[i], 1);
+			param.setSelectionType(s[i], 3);
+			List<Individual> list = createBadIndividuals(param
+					.getGenerationSize());
+			Population pop = makePopulation(param, list, lists[i]);
+			double maxFitness = pop.maxFitness();
+			double avgFitness = pop.averageFitness();
+
+			gsc.addPoints(lists[i], s[i].name());
+			System.out.println(String.valueOf(maxFitness).replace('.', ','));
+		}
+		gsc.draw("Generation", "MaxFitness");
+	}
+
+	public Population makePopulation(Param param,
+			List<Individual> initialPopulation) {
+		Population pop = new Population(param, new ArcherFactory(),
+				initialPopulation);
 		pop.evolute();
 		return pop;
 	}
+
+	public Population makePopulation(Param param,
+			List<Individual> initialPopulation, GraphicChart gc) {
+		Population pop = new Population(param, new ArcherFactory(),
+				initialPopulation);
+		pop.evolute(gc);
+		return pop;
+	}
 	
+	public Population makePopulation(Param param,
+			List<Individual> initialPopulation, List<Pair> serie) {
+		Population pop = new Population(param, new ArcherFactory(),
+				initialPopulation);
+		pop.evolute(serie);
+		return pop;
+	}
+
 	/* 1,9151925720 - Item #102 - Item #199 - Item #173 - Item #109 - Item #78 */
 
 	private List<Individual> createBadIndividuals(int generationSize) {
@@ -81,7 +115,7 @@ public class Main {
 		}
 		return list;
 	}
-	
+
 	private List<Allele> getBadCombination() {
 		List<Allele> alleles = new LinkedList<>();
 		alleles.add(new HeightAllele(1.9151925720));

@@ -13,26 +13,26 @@ import util.RandomUtil;
 
 public final class Param {
 
-	private int generationSize = 2000;
-	private int selectionSize = 1200;
+	private int generationSize = 170;
+	private int selectionSize = 0;
 	private double generationGap = 0.6;
 	private double probabilityToCrossover = 0.95;
-	private double probabilityToMutate = 0.01;
+	private double probabilityToMutate = 0.06;
 	private MutationType mutationType = MutationType.NOUNIFORM;
 	private ReplacementType replacementType = ReplacementType.GENERATIONGAP;
 	private CrossoverType crossoverType = CrossoverType.UNIFORM_PARAMETRIZED;
 	private SelectionType[] selectionType = new SelectionType[]{
-			SelectionType.ELITE,
-			SelectionType.RANDOM,
-			SelectionType.ELITE,
-			SelectionType.RANDOM};
-	private double A = 1;
-	private double B = 0;
+			SelectionType.TOURNAMENT_DETERMINISTIC,
+			SelectionType.BOLTZMANN99,
+			SelectionType.TOURNAMENT_DETERMINISTIC,
+			SelectionType.BOLTZMANN99};
+	private double A = 0.1;
+	private double B = 0.1;
 	private EndConditionType endConditionType = EndConditionType.CONTENT;
-	private int maxGeneration = 100;
+	private int maxGeneration = 300;
 	private double maxFitness = 20;
 	private int maxSteps = 100;
-	private int seed = 1;
+	private int seed = 1234;
 
 	public Param(String fileName) {
 		try {
@@ -195,8 +195,8 @@ public final class Param {
 		this.crossoverType = crossoverType;
 	}
 
-	public void setSelectionType(SelectionType[] selectionType) {
-		this.selectionType = selectionType;
+	public void setSelectionType(SelectionType selectionType, int i) {
+		this.selectionType[i] = selectionType;
 	}
 
 	public void setA(double a) {

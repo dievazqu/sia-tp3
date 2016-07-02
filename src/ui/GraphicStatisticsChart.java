@@ -21,7 +21,7 @@ public class GraphicStatisticsChart extends ApplicationFrame{
 	
 	private List<XYSeries> series;
 	
-	private final Color[] colors = {Color.RED, Color.BLUE, Color.GREEN, Color.BLACK};
+	private final Color[] colors = {Color.RED, Color.BLUE, Color.GREEN, Color.BLACK, Color.CYAN, Color.MAGENTA, Color.ORANGE, Color.YELLOW, Color.DARK_GRAY};
 	
 	public GraphicStatisticsChart(){
 		super("SIA-TP3");
@@ -47,14 +47,13 @@ public class GraphicStatisticsChart extends ApplicationFrame{
 				
 				/*ChartFactory.createXYLineChart("", xLabel, yLabel, dataset,
 				PlotOrientation.VERTICAL, true, false, false);*/
-
 		ChartPanel chartPanel = new ChartPanel(xylineChart);
 		final XYPlot plot = xylineChart.getXYPlot();
 		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
 		for(int i=0; i<series.size(); i++){
 			renderer.setSeriesPaint(i, colors[i]);
-			renderer.setSeriesShapesVisible(i, true);
-			renderer.setLinesVisible(false);
+			renderer.setSeriesShapesVisible(i, false);
+			renderer.setLinesVisible(true);
 		}
 		plot.setRenderer(renderer);
 		setContentPane(chartPanel);

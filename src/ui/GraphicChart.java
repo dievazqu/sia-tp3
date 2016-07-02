@@ -2,8 +2,6 @@ package ui;
 
 import java.awt.Color;
 
-import geneticAlgorithm.Population;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -52,7 +50,6 @@ public class GraphicChart extends ApplicationFrame{
 		renderer.setSeriesShapesVisible(1, false);
 		plot.setRenderer(renderer);
 		setContentPane(chartPanel);
-
 		pack();
 		RefineryUtilities.centerFrameOnScreen(this);
 		setVisible(true);

@@ -6,4 +6,6 @@ import geneticAlgorithm.Population;
 public interface EndCondition {
 
 	boolean finish(Param param, Population population);
+	
+	void clear();
 }

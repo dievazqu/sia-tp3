@@ -1,13 +1,18 @@
 package geneticAlgorithm.individual;
 
-import java.util.List;
-
 import geneticAlgorithm.allele.Allele;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArcherFactory implements IndividualFactory{
 
 	@Override
 	public Individual createIndividual(List<Allele> list) {
-		return new Archer1(list);
+		List<Allele> allele = new ArrayList<Allele>();
+		for(Allele a : list){
+			allele.add(a.clone());
+		}
+		return new Archer1(allele);
 	}
 }

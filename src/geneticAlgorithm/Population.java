@@ -26,6 +26,7 @@ public class Population {
 		while (!param.getEndConditionType().finish(param, this)) {
 			next();
 		}
+		param.getEndConditionType().clear();
 	}
 	
 	public void evolute(GraphicChart graphicChart) {
@@ -34,6 +35,7 @@ public class Population {
 			graphicChart.addAvgValue(generation, averageFitness());
 			graphicChart.addMaxValue(generation, maxFitness());
 		}
+		param.getEndConditionType().clear();
 	}
 	
 	public double averageFitness(){
@@ -42,6 +44,10 @@ public class Population {
 	
 	public double maxFitness(){
 		return individuals.stream().mapToDouble(i->i.getFitness()).max().getAsDouble();
+	}
+	
+	public double minFitness(){
+		return individuals.stream().mapToDouble(i->i.getFitness()).min().getAsDouble();
 	}
 
 	private void next() {

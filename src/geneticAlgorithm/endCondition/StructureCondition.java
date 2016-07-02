@@ -27,4 +27,9 @@ public class StructureCondition implements EndCondition {
 		lastAvg=avg;
 		return false;
 	}
+	
+	@Override
+	public void clear() {
+		lastAvg=0.0;
+	}
 }

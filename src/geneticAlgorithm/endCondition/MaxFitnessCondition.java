@@ -4,15 +4,21 @@ import config.Param;
 import geneticAlgorithm.Population;
 import geneticAlgorithm.individual.Individual;
 
-public class MaxFitnessCondition implements EndCondition{
-	
+public class MaxFitnessCondition implements EndCondition {
+
 	@Override
 	public boolean finish(Param param, Population population) {
 		double maxFitness = 0;
-		for(Individual i : population.getIndividuals()){
-			maxFitness=Math.max(maxFitness, i.getFitness());
+		for (Individual i : population.getIndividuals()) {
+			maxFitness = Math.max(maxFitness, i.getFitness());
 		}
 		return param.getMaxFitness() <= maxFitness;
 	}
-	
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+
+	}
+
 }

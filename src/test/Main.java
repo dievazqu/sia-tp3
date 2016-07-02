@@ -8,28 +8,13 @@ import geneticAlgorithm.individual.ArcherFactory;
 import geneticAlgorithm.individual.Individual;
 import geneticAlgorithm.individual.IndividualFactory;
 import geneticAlgorithm.item.ItemsProvider;
-import geneticAlgorithm.selection.SelectionType;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
-
-import com.orsoncharts.graphics3d.Utils2D;
-
-import ui.GraphicChart;
-import util.RandomUtil;
+import ui.GraphicStatisticsChart;
+import util.Pair;
 import config.ItemParser;
 import config.Param;
 
@@ -49,32 +34,41 @@ public class Main {
 		gloves = ItemParser.parseItems("equipamiento/guantes.tsv");
 		mail = ItemParser.parseItems("equipamiento/pecheras.tsv");
 		/*List<Individual> list = createBadIndividuals(param.getGenerationSize());*/
-		List<Individual> list = createRandomIndividuals(param
+		List<Pair> output = new LinkedList<>();
+		for(int i=20; i<=200; i+=10){
+			param.setGenerationSize(i);
+			List<Individual> list = createRandomIndividuals(param
+					.getGenerationSize());
+			Population pop = makePopulation(param, list);
+			double maxFitness = pop.maxFitness();
+			System.out.println(i+": "+String.valueOf(maxFitness).replace('.', ','));
+			output.add(new Pair(i, maxFitness));
+		}
+		GraphicStatisticsChart gsc = new GraphicStatisticsChart();
+		gsc.addPoints(output, ".");
+		gsc.draw("GenerationSize", "MaxFitness");
+		/*List<Individual> list = createRandomIndividuals(param
 				.getGenerationSize());
-		Population pop = new Population(param, new ArcherFactory(), list);
-		GraphicChart graphicChart = new GraphicChart();
-		pop.evolute(graphicChart);
-		graphicChart.draw();
-
-		System.out.println(pop.getGeneration());
-		System.out.println(String.valueOf(pop.maxFitness()).replace('.', ','));
-		System.out.println(pop.getIndividuals().stream().max((i,j) -> j.compareTo(i)).get());
-		/*List<Allele> listt =new ArrayList<Allele>();
-		listt.add(new HeightAllele(1.9151925719));
-		listt.add(new ItemAllele(weapons, 110));
-		listt.add(new ItemAllele(boots, 130));
-		listt.add(new ItemAllele(helmets, 13));
-		listt.add(new ItemAllele(gloves, 11));
-		listt.add(new ItemAllele(mail, 190));
-		System.out.println(new ArcherFactory().createIndividual(listt));
-		listt =new ArrayList<Allele>();
-		listt.add(new HeightAllele(1.9151925720));
-		listt.add(new ItemAllele(weapons, 110));
-		listt.add(new ItemAllele(boots, 130));
-		listt.add(new ItemAllele(helmets, 13));
-		listt.add(new ItemAllele(gloves, 11));
-		listt.add(new ItemAllele(mail, 190));
-		System.out.println(new ArcherFactory().createIndividual(listt));*/
+		for(Individual i : list){
+			System.out.println(i);
+		}
+		Population pop = makePopulation(param, list);
+		double max=0;
+		Individual maxI = null;
+		for(Individual i : pop.getIndividuals()){
+			if(i.getFitness()>max){
+				maxI=i;
+				max=i.getFitness();
+			}
+		}
+		System.out.println();
+		System.out.println(maxI);*/
+	}
+	
+	public Population makePopulation(Param param, List<Individual> initialPopulation){
+		Population pop = new Population(param, new ArcherFactory(), initialPopulation);
+		pop.evolute();
+		return pop;
 	}
 	
 	/* 1,9151925720 - Item #102 - Item #199 - Item #173 - Item #109 - Item #78 */

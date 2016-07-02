@@ -24,4 +24,10 @@ public class ContentCondition implements EndCondition {
 		return counter > param.getMaxSteps();
 	}
 
+	@Override
+	public void clear() {
+		counter=0;
+		maxFitness=0;
+	}
+
 }

@@ -7,7 +7,7 @@ import util.RandomUtil;
 
 public enum MutationType {
 	CLASSIC, 
-	UNIFORM;
+	NOUNIFORM;
 
 	public void mutate(List<Allele> alleles, double probability) {
 		switch (this) {
@@ -16,7 +16,7 @@ public enum MutationType {
 				alleles.get(RandomUtil.getRandom(alleles.size())).mutate();
 			}
 			break;
-		case UNIFORM:
+		case NOUNIFORM:
 			for (Allele a : alleles) {
 				if (RandomUtil.getRandom() < probability)
 					a.mutate();

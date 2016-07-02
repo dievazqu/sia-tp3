@@ -7,13 +7,13 @@ import util.RandomUtil;
 
 public abstract class Individual implements Comparable<Individual> {
 	
-	public static List<Individual> reproduce(Param param, IndividualFactory factory, 
+	/*public static List<Individual> reproduce(Param param, IndividualFactory factory, 
 			Individual i1, Individual i2){
 		if(!i1.getClass().equals(i2.getClass()) || i1.alleles.size()!=i2.alleles.size()){
 			throw new IllegalArgumentException();
 		}
 		return param.getCrossoverType().reproduce(factory, i1, i2);
-	}
+	}*/
 	
 	protected List<Allele> alleles;
 	private Double fitness;

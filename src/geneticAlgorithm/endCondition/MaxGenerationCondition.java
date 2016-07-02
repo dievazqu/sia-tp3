@@ -9,4 +9,10 @@ public class MaxGenerationCondition implements EndCondition {
 	public boolean finish(Param param, Population population) {
 		return population.getGeneration() >= param.getMaxGeneration();
 	}
+	
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}
 }

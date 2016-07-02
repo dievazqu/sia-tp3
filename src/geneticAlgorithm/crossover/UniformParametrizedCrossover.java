@@ -17,11 +17,11 @@ public class UniformParametrizedCrossover implements CrossoverReproduction {
 		List<Allele> child2 = new ArrayList<Allele>(size);
 		for(int i=0; i<size; i++){
 			if(RandomUtil.getRandom()<0.5){
-				child1.add(i1.getAlleleAt(i).clone());
-				child2.add(i2.getAlleleAt(i).clone());
+				child1.add(i1.getAlleleAt(i));
+				child2.add(i2.getAlleleAt(i));
 			}else{
-				child1.add(i2.getAlleleAt(i).clone());
-				child2.add(i1.getAlleleAt(i).clone());
+				child1.add(i2.getAlleleAt(i));
+				child2.add(i1.getAlleleAt(i));
 			}
 		}
 		List<Individual> ans = new ArrayList<Individual>();

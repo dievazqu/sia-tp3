@@ -20,4 +20,8 @@ public enum EndConditionType {
 		return endCondition.finish(param, population);
 	}
 	
+	public void clear(){
+		endCondition.clear();
+	}
+	
 }

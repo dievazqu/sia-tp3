@@ -13,25 +13,25 @@ import util.RandomUtil;
 
 public final class Param {
 
-	private int generationSize = 2000;
+	private int generationSize = 20;
 	private int selectionSize = 0;
 	private double generationGap = 0.6;
-	private double probabilityToCrossover = 0.95;
-	private double probabilityToMutate = 0.001;
-	private MutationType mutationType = MutationType.UNIFORM;
-	private ReplacementType replacementType = ReplacementType.GENERATIONGAP;
+	private double probabilityToCrossover = 0.5;
+	private double probabilityToMutate = 0.01;
+	private MutationType mutationType = MutationType.NOUNIFORM;
+	private ReplacementType replacementType = ReplacementType.ALL;
 	private CrossoverType crossoverType = CrossoverType.UNIFORM_PARAMETRIZED;
 	private SelectionType[] selectionType = new SelectionType[]{
 			SelectionType.ELITE,
-			SelectionType.BOLTZMANN,
+			SelectionType.RANDOM,
 			SelectionType.ELITE,
-			SelectionType.BOLTZMANN};
-	private double A = 0.5;
-	private double B = 0.5;
+			SelectionType.RANDOM};
+	private double A = 1;
+	private double B = 0;
 	private EndConditionType endConditionType = EndConditionType.CONTENT;
-	private int maxGeneration = 0;
+	private int maxGeneration = 100;
 	private double maxFitness = 20;
-	private int maxSteps = 500;
+	private int maxSteps = 100;
 	private int seed = 1;
 
 	public Param(String fileName) {
@@ -162,4 +162,70 @@ public final class Param {
 	public double getGenerationGap() {
 		return generationGap;
 	}
+
+	public void setGenerationSize(int generationSize) {
+		this.generationSize = generationSize;
+	}
+
+	public void setSelectionSize(int selectionSize) {
+		this.selectionSize = selectionSize;
+	}
+
+	public void setGenerationGap(double generationGap) {
+		this.generationGap = generationGap;
+	}
+
+	public void setProbabilityToCrossover(double probabilityToCrossover) {
+		this.probabilityToCrossover = probabilityToCrossover;
+	}
+
+	public void setProbabilityToMutate(double probabilityToMutate) {
+		this.probabilityToMutate = probabilityToMutate;
+	}
+
+	public void setMutationType(MutationType mutationType) {
+		this.mutationType = mutationType;
+	}
+
+	public void setReplacementType(ReplacementType replacementType) {
+		this.replacementType = replacementType;
+	}
+
+	public void setCrossoverType(CrossoverType crossoverType) {
+		this.crossoverType = crossoverType;
+	}
+
+	public void setSelectionType(SelectionType[] selectionType) {
+		this.selectionType = selectionType;
+	}
+
+	public void setA(double a) {
+		A = a;
+	}
+
+	public void setB(double b) {
+		B = b;
+	}
+
+	public void setEndConditionType(EndConditionType endConditionType) {
+		this.endConditionType = endConditionType;
+	}
+
+	public void setMaxGeneration(int maxGeneration) {
+		this.maxGeneration = maxGeneration;
+	}
+
+	public void setMaxFitness(double maxFitness) {
+		this.maxFitness = maxFitness;
+	}
+
+	public void setMaxSteps(int maxSteps) {
+		this.maxSteps = maxSteps;
+	}
+
+	public void setSeed(int seed) {
+		this.seed = seed;
+	}
+	
+	
 }

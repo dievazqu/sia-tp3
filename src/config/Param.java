@@ -17,21 +17,21 @@ public final class Param {
 	private int selectionSize = 0;
 	private double generationGap = 0.6;
 	private double probabilityToCrossover = 0.95;
-	private double probabilityToMutate = 0.06;
+	private double probabilityToMutate = 0.15;
 	private MutationType mutationType = MutationType.NOUNIFORM;
 	private ReplacementType replacementType = ReplacementType.GENERATIONGAP;
 	private CrossoverType crossoverType = CrossoverType.UNIFORM_PARAMETRIZED;
 	private SelectionType[] selectionType = new SelectionType[]{
-			SelectionType.TOURNAMENT_DETERMINISTIC,
+			SelectionType.BOLTZMANN,
 			SelectionType.BOLTZMANN99,
-			SelectionType.TOURNAMENT_DETERMINISTIC,
-			SelectionType.BOLTZMANN99};
-	private double A = 0.1;
+			SelectionType.ELITE,
+			SelectionType.ROULETTE};
+	private double A = 0.6;
 	private double B = 0.1;
 	private EndConditionType endConditionType = EndConditionType.CONTENT;
 	private int maxGeneration = 300;
-	private double maxFitness = 20;
-	private int maxSteps = 100;
+	private double maxFitness = 0;
+	private int maxSteps = 1000;
 	private int seed = 1234;
 
 	public Param(String fileName) {
@@ -39,6 +39,7 @@ public final class Param {
 			Scanner scanner = new Scanner(new File(fileName));
 			while (scanner.hasNext()) {
 				String[] keyValue = scanner.next().split("=");
+				keyValue[1]=keyValue[1].toUpperCase();
 				switch (keyValue[0]) {
 				case "replacementType":
 					replacementType = ReplacementType.valueOf(keyValue[1]);
@@ -66,6 +67,9 @@ public final class Param {
 					break;
 				case "generationSize":
 					generationSize = Integer.valueOf(keyValue[1]);
+					break;
+				case "generationGap":
+					generationGap = Double.valueOf(keyValue[1]);
 					break;
 				case "maxGeneration":
 					maxGeneration = Integer.valueOf(keyValue[1]);
@@ -227,5 +231,36 @@ public final class Param {
 		this.seed = seed;
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		str.append("Generation Size = "+generationSize+"\n");
+		str.append("Replacement Type = "+replacementType.name()+"\n");
+		if(replacementType==ReplacementType.GENERATIONGAP){
+			str.append("Generation Gap = "+generationGap+"\n");
+		}else{
+			str.append("Selection Size = "+selectionSize+"\n");
+		}
+		str.append("Crossover Type = "+crossoverType.name()+"\n");
+		str.append("Probability To Crossover = "+probabilityToCrossover+"\n");
+		str.append("Mutation Type = "+mutationType.name()+"\n");
+		str.append("Probability To Mutate = "+probabilityToMutate+"\n");
+		str.append("Selection Type For Crossover = {"+selectionType[0].name()+"("+A+"), "+selectionType[1].name()+"("+(1-A)+")}"+"\n");
+		str.append("Selection Type For Replace = {"+selectionType[2].name()+"("+B+"), "+selectionType[3].name()+"("+(1-B)+")}"+"\n");
+		str.append("End Condition = "+endConditionType.name()+"\n");
+		switch(endConditionType){
+			case CONTENT:
+				str.append("Max Steps = "+maxSteps+"\n");
+				break;
+			case MAX_FITNESS:
+				str.append("Max Fitness = "+maxFitness+"\n");
+				break;
+			case GENERATIONS:
+				str.append("Generations = "+maxGeneration+"\n");
+				break;
+		}
+		str.append("Random seed = "+seed+"\n");
+		return str.toString();
+	}
 	
 }

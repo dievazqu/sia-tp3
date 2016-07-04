@@ -4,6 +4,7 @@ import geneticAlgorithm.Population;
 import geneticAlgorithm.allele.Allele;
 import geneticAlgorithm.allele.HeightAllele;
 import geneticAlgorithm.allele.ItemAllele;
+import geneticAlgorithm.crossover.CrossoverType;
 import geneticAlgorithm.individual.ArcherFactory;
 import geneticAlgorithm.individual.Individual;
 import geneticAlgorithm.individual.IndividualFactory;
@@ -35,11 +36,12 @@ public class Main {
 		helmets = ItemParser.parseItems("equipamiento/cascos.tsv");
 		gloves = ItemParser.parseItems("equipamiento/guantes.tsv");
 		mail = ItemParser.parseItems("equipamiento/pecheras.tsv");
-		runTests(param);
-		//runUniqueTest(param);
+		//runTests(param);
+		runUniqueTest(param);
 	}
 
 	public void runUniqueTest(Param param) {
+		System.out.println(param);
 		List<Individual> list = createRandomIndividuals(param
 				.getGenerationSize());
 		GraphicChart gc = new GraphicChart();
@@ -54,22 +56,19 @@ public class Main {
 			}
 		}
 		System.out.println(maxI);
-		System.out.println();
-		System.out.println(pop);
 	}
 
 	public void runTests(Param param) {
-		
-		
 		SelectionType[] s = {SelectionType.RANDOM, SelectionType.BOLTZMANN99, SelectionType.RANKING, SelectionType.ROULETTE,
 				SelectionType.TOURNAMENT_DETERMINISTIC, SelectionType.TOURNAMENT_PROBABILISTIC, SelectionType.UNIVERSAL, SelectionType.BOLTZMANN, SelectionType.ELITE};
+		//CrossoverType[] s = {CrossoverType.ANULAR, CrossoverType.ONE_POINT, CrossoverType.TWO_POINT, CrossoverType.UNIFORM_PARAMETRIZED};
 		List<Pair>[] lists = new LinkedList[s.length];
 		GraphicStatisticsChart gsc = new GraphicStatisticsChart();
 		for (int i = 0; i < s.length; i++){
 			lists[i]=new LinkedList<Pair>();
 			param.setSelectionType(s[i], 1);
 			param.setSelectionType(s[i], 3);
-			List<Individual> list = createBadIndividuals(param
+			List<Individual> list = createRandomIndividuals(param
 					.getGenerationSize());
 			Population pop = makePopulation(param, list, lists[i]);
 			double maxFitness = pop.maxFitness();
@@ -112,6 +111,18 @@ public class Main {
 		List<Individual> list = new ArrayList<Individual>();
 		for (int i = 0; i < generationSize; i++) {
 			list.add(factory.createIndividual(getBadCombination()));
+		}
+		return list;
+	}
+	
+	private List<Individual> createDwarfIndividuals(int generationSize) {
+		IndividualFactory factory = new ArcherFactory();
+		List<Individual> list = new ArrayList<Individual>();
+		for (int i = 0; i < generationSize; i++) {
+			List<Allele> alleles = getRandomCombination();
+			alleles.remove(0);
+			alleles.add(0, new HeightAllele(1.3));
+			list.add(factory.createIndividual(alleles));
 		}
 		return list;
 	}

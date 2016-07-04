@@ -45,6 +45,19 @@ public class Archer1 extends Unit{
 		return 0.5;
 	}
 	
-	
+	@Override
+	public String toString() {
+		StringBuilder stringBuilder = new StringBuilder();
+		for(Allele a : alleles){
+			stringBuilder.append(a.toString()+" - ");
+		}
+		stringBuilder.append(" fitness: "+String.format("%.2f",getFitness()));
+		stringBuilder.append("\nFU: "+String.format("%.2f",getStr())+" - ");
+		stringBuilder.append("AG: "+String.format("%.2f",getAgi())+" - ");
+		stringBuilder.append("EX: "+String.format("%.2f",getExp())+" - ");
+		stringBuilder.append("RE: "+String.format("%.2f",getRes())+" - ");
+		stringBuilder.append("VI: "+String.format("%.2f",getHP()));
+		return stringBuilder.toString();
+	}
 
 }

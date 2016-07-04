@@ -32,10 +32,10 @@ public class Population {
 	
 	public void evolute(GraphicChart graphicChart) {
 		while (!param.getEndConditionType().finish(param, this)) {
-			next();
 			graphicChart.addAvgValue(generation, averageFitness());
 			graphicChart.addMaxValue(generation, maxFitness());
 			graphicChart.addMinValue(generation, minFitness());
+			next();
 		}
 		param.getEndConditionType().clear();
 	}
